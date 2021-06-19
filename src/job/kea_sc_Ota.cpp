@@ -2,7 +2,7 @@
 
 #define TASK_DELAY 5000
 #define TASK_PRIORIY 1
-#define STACK_DEPTH 2048
+#define STACK_DEPTH 4096
 
 const char *ssid = "admin";
 const char *password = "examplePass"; 
@@ -15,7 +15,7 @@ static void handle(void *pvParameter)
     }
 }
 
-void keasc_ota_start()
+void kea_sc_ota_start()
 {
     Serial.begin(115200);
     Serial.println("Booting");
