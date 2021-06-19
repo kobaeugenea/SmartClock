@@ -15,7 +15,7 @@ static void handle(void *pvParameter)
     }
 }
 
-void kea_sc_ota_start()
+void kea_sc_OtaStart()
 {
     Serial.begin(115200);
     Serial.println("Booting");
