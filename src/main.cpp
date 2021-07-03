@@ -1,8 +1,8 @@
-#include "job/kea_sc_Ota.h"
+#include "job/kea_sc_OtaJ.h"
 #include <U8g2lib.h>
 
 void startJobs() {
-  kea_sc_OtaStart();
+  kea_sc_OtaJ_start();
 }
 
 extern "C" void app_main() {
@@ -20,6 +20,6 @@ extern "C" void app_main() {
   u8g2_SetFont(&u8g2, u8g2_font_victoriabold8_8r);
   u8g2_DrawStr(&u8g2, 0, 7, "LOVE");
   u8g2_SetDisplayRotation(&u8g2, U8G2_R2);
-  u8g2_DrawStr(&u8g2, 0, 7, "U!!!");
+  u8g2_DrawStr(&u8g2, 0, 7, "YOU!");
   u8g2_SendBuffer(&u8g2);
 }
