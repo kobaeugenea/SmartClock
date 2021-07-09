@@ -1,5 +1,5 @@
-#ifndef KEA_SC_QUEUE_H
-#define KEA_SC_QUEUE_H
+#ifndef KEA_SC_QUEUEU_H
+#define KEA_SC_QUEUEU_H
  
 //size must be a power of two: 4,8,16,32...128
 #define kea_sc_QueueData( size )\
