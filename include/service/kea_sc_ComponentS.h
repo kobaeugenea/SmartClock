@@ -2,20 +2,24 @@
 #define KEA_SC_COMPONENTS_H
 
 #include <stdint.h>
+#include "util/kea_sc_IdU.h"
 
-#define MAX_COMPONENT_NAME_LENGHT 24
-
-typedef struct kea_sc_ComponentSData {
+typedef struct kea_sc_ComponentS_Data {
     int8_t clock;
     int8_t data;
     int8_t cs;
     int8_t dc;
     int8_t reset;
-    char* componentName;
-} kea_sc_ComponentSData;
+} kea_sc_ComponentS_Data;
 
-kea_sc_ComponentSData kea_sc_ComponentS_init(int8_t clock, int8_t data, int8_t cs, int8_t dc, int8_t reset, char componentName[MAX_COMPONENT_NAME_LENGHT]);
-void kea_sc_ComponentS_putContext(kea_sc_ComponentSData componentSData, void* context);
-void* kea_sc_ComponentS_getContext(kea_sc_ComponentSData componentSData);
+typedef struct kea_sc_ComponentS_Id {
+    uint8_t id;
+    kea_sc_IdU_Status status;
+
+} kea_sc_ComponentS_Id;
+
+kea_sc_ComponentS_Id kea_sc_ComponentS_init(int8_t clock, int8_t data, int8_t cs, int8_t dc, int8_t reset);
+void kea_sc_ComponentS_putContext(kea_sc_ComponentS_Id componentSData, void* context);
+void* kea_sc_ComponentS_getContext(kea_sc_ComponentS_Id componentSData);
 
 #endif

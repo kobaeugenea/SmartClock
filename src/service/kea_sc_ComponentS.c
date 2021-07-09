@@ -8,29 +8,12 @@
 
 typedef struct kea_sc_ComponentContext
 {
-    kea_sc_ComponentSData componentSData;
+    kea_sc_ComponentS_Data componentSData;
     void *context;
 } kea_sc_ComponentContext;
 
 static uint8_t numberOfComponents = 0;
 static kea_sc_ComponentContext components[MAX_COMPONENT_COUNT];
-
-/**
- * Init component data
- * Pass -1 if pin isn't used by component
- */
-kea_sc_ComponentSData kea_sc_ComponentS_init(int8_t clock, int8_t data, int8_t cs, int8_t dc, int8_t reset, char componentName[])
-{
-    kea_sc_ComponentSData componentSData = {
-        .clock = clock,
-        .data = data,
-        .cs = cs,
-        .dc = dc,
-        .reset = reset,
-        .componentName = componentName,
-    };
-    return componentSData;
-}
 
 static bool checkPinAlreadyUsed(uint8_t pin)
 {
@@ -41,7 +24,7 @@ static bool checkPinAlreadyUsed(uint8_t pin)
 
     for (uint8_t i = 0; i < numberOfComponents; i++)
     {
-        kea_sc_ComponentSData componentSData = components[i].componentSData;
+        kea_sc_ComponentS_Data componentSData = components[i].componentSData;
         if (componentSData.clock == pin ||
             componentSData.data == pin ||
             componentSData.cs == pin ||
@@ -58,7 +41,7 @@ static bool checkPinAlreadyUsed(uint8_t pin)
 /**
  * @return -1 if all pins used by component are free, otherwise return busy pin number
  */
-static int8_t checkPinsAlreadyUsed(kea_sc_ComponentSData componentSData)
+static int8_t checkPinsAlreadyUsed(kea_sc_ComponentS_Data componentSData)
 {
     if (checkPinAlreadyUsed(componentSData.clock))
     {
@@ -84,49 +67,71 @@ static int8_t checkPinsAlreadyUsed(kea_sc_ComponentSData componentSData)
     return -1;
 }
 
-void kea_sc_ComponentS_putContext(kea_sc_ComponentSData componentSData, void *context)
+/**
+ * Init component data
+ * Pass -1 if pin isn't used by component
+ */
+kea_sc_ComponentS_Id kea_sc_ComponentS_init(int8_t clock, int8_t data, int8_t cs, int8_t dc, int8_t reset)
 {
-    //TODO translation service
+    kea_sc_ComponentS_Data componentSData = {
+        .clock = clock,
+        .data = data,
+        .cs = cs,
+        .dc = dc,
+        .reset = reset,
+    };
+
     if (numberOfComponents >= MAX_COMPONENT_COUNT)
     {
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_TOO_MANY_COMPONENTS_CODE), MAX_ERROR_LENGTH);
-        return;
+        kea_sc_ComponentS_Id componentId = {
+            .id = numberOfComponents,
+            .status = kea_sc_IdU_Status_NOT_CREATED
+        };
+        return componentId;
     }
 
     int8_t usedPin = checkPinsAlreadyUsed(componentSData);
     if (usedPin)
     {
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_PIN_USED_CODE), usedPin);
-        return;
+        kea_sc_ComponentS_Id componentId = {
+            .id = numberOfComponents,
+            .status = kea_sc_IdU_Status_NOT_CREATED
+        };
+        return componentId;
     }
 
     kea_sc_ComponentContext componentContext = {
         .componentSData = componentSData,
-        .context = context,
+        .context = NULL,
     };
+
+    kea_sc_ComponentS_Id componentId = {
+        .id = numberOfComponents,
+        .status = kea_sc_IdU_Status_OK
+    };
+
     components[numberOfComponents] = componentContext;
     numberOfComponents++;
+
+    return componentId;
 }
 
-static bool isComponentsEqual(kea_sc_ComponentSData cd1, kea_sc_ComponentSData cd2)
+void kea_sc_ComponentS_putContext(kea_sc_ComponentS_Id componentId, void *context)
 {
-    return cd1.clock == cd2.clock &&
-           cd1.data == cd2.data &&
-           cd1.cs == cd2.cs &&
-           cd1.dc == cd2.dc &&
-           cd1.reset == cd2.reset &&
-           strcmp(cd1.componentName, cd2.componentName) == 0;
-}
-
-void *kea_sc_ComponentSGetContext(kea_sc_ComponentSData componentSData)
-{
-    for (uint8_t i = 0; i < numberOfComponents; i++)
-    {
-        if (isComponentsEqual(componentSData, components[i].componentSData))
-        {
-            return components[i].context;
-        }
+    if(componentId.id > numberOfComponents) {
+        kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_COMPONENT_NOT_EXISTS), componentId.id);
+        return;
     }
+    components[componentId.id].context = context;
+}
 
-    return NULL;
+void *kea_sc_ComponentSGetContext(kea_sc_ComponentS_Id componentId)
+{
+    if(componentId.id > numberOfComponents) {
+        kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_COMPONENT_NOT_EXISTS), componentId.id);
+        return;
+    }
+    return components[componentId.id].context;
 }

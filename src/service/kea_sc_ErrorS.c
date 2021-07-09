@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "service/kea_sc_ErrorS.h"
-#include "util/collection/kes_sc_QueueU.h"
+#include "util/collection/kea_sc_QueueU.h"
 
 #define MAX_ERRORS_COUNT 16
 
