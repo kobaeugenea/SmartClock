@@ -5,7 +5,7 @@ static kea_sc_MessageS_Language currentLanguage = kea_sc_MessageS_Language_ENGLI
 
 
                             //Russian                                               //Codes
-static char *messages[][5] = {{"Количество компонентов должно быть меньше, чем %d", //0
+static char *messages[][8] = {{"Количество компонентов должно быть меньше, чем %d", //0
                              "Пин %d уже используется",                             //1
                              "Компонент с %d id не существует",                     //2
                              "Запрошен %d дисплей, всего - %d",                     //3
