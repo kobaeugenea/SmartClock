@@ -15,6 +15,7 @@ typedef uint8_t kea_sc_MessageS_MessageCode;
 #define KEA_SC_MESSAGES_CANNOT_CREATE_TASK 5
 #define KEA_SC_MESSAGES_CANNOT_CREATE_SEMAPHORE 6
 #define KEA_SC_MESSAGES_CANNOT_ALLOCATE_MEMORY 7
+#define KEA_SC_MESSAGES_WRONG_DATE_FORMAT 8
 
 typedef enum kea_sc_MessageS_Language {
     kea_sc_MessageS_Language_RUSSIAN,
