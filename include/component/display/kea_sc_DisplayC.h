@@ -21,7 +21,6 @@ typedef struct kea_sc_DisplayC_Id {
 extern "C" {
 #endif
 
-
 //common displays methods
 void kea_sc_DisplayC_init();
 uint8_t kea_sc_DisplayC_getDisplaysCount();
