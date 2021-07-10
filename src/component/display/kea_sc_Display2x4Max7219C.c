@@ -13,7 +13,7 @@
 #include "util/kea_sc_MemoryU.h"
 
 #define KEA_SC_2X4MAX7219DISAPLYC_TASK_PRIORITY 1
-#define KEA_SC_2X4MAX7219DISAPLYC_TASK_STACK_DEPTH 2048
+#define KEA_SC_2X4MAX7219DISAPLYC_TASK_STACK_DEPTH 4096
 
 uint8_t u8x8_gpio_and_delay_arduino(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
 static void redraw(void *pvParameter);

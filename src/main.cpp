@@ -1,12 +1,10 @@
 #include "util/kea_sc_FreeRTOSConfigU.h"
 
 #include <Arduino.h>
-#include "job/kea_sc_OtaJ.h"
 #include "component/display/kea_sc_DisplayC.h"
 #include "service/kea_sc_DateS.h"
 
 void startJobs() {
-  kea_sc_OtaJ_start();
 }
 
 void initComponents() {
