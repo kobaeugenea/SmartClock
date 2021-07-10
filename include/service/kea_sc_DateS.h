@@ -2,15 +2,16 @@
 #define KEA_SC_DATES_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef enum kea_sc_DateS_DayOfWeek {
-    kea_sc_DateS_Weekday_MON,
-    kea_sc_DateS_Weekday_TUE,
-    kea_sc_DateS_Weekday_WED,
-    kea_sc_DateS_Weekday_THU,
-    kea_sc_DateS_Weekday_FRI,
-    kea_sc_DateS_Weekday_SAT,
-    kea_sc_DateS_Weekday_SUN,
+    kea_sc_DateS_DayOfWeek_MON,
+    kea_sc_DateS_DayOfWeek_TUE,
+    kea_sc_DateS_DayOfWeek_WED,
+    kea_sc_DateS_DayOfWeek_THU,
+    kea_sc_DateS_DayOfWeek_FRI,
+    kea_sc_DateS_DayOfWeek_SAT,
+    kea_sc_DateS_DayOfWeek_SUN,
 } kea_sc_DateS_DayOfWeek;
 
 typedef enum kea_sc_DateS_Month {
@@ -29,13 +30,17 @@ typedef enum kea_sc_DateS_Month {
 } kea_sc_DateS_Month;
 
 typedef struct kea_sc_DateS_Date {
+    uint8_t sec;
+    uint8_t min;
+    uint8_t hour;
     uint8_t day;
     kea_sc_DateS_Month month;
     uint16_t year;
-    uint8_t hour;
-    uint8_t sec;
-    uint8_t min;
     kea_sc_DateS_DayOfWeek dayOfWeek;
 } kea_sc_DateS_Date;
+
+extern kea_sc_DateS_Date kea_sc_DateS_Date_unixEpoch;
+
+bool kea_sc_DateS_isDateValid(kea_sc_DateS_Date date);
 
 #endif

@@ -5,7 +5,7 @@ static kea_sc_MessageS_Language currentLanguage = kea_sc_MessageS_Language_ENGLI
 
 
                             //Russian                                               //Codes
-static char *messages[][8] = {{"Количество компонентов должно быть меньше, чем %d", //0
+static char *messages[][9] = {{"Количество компонентов должно быть меньше, чем %d", //0
                              "Пин %d уже используется",                             //1
                              "Компонент с %d id не существует",                     //2
                              "Запрошен %d дисплей, всего - %d",                     //3
@@ -13,6 +13,7 @@ static char *messages[][8] = {{"Количество компонентов до
                              "Невозможно создать задачу",                           //5
                              "Невозможно создать семафор",                          //6
                              "Невозможно выделить память",                          //7
+                             "Неверный формат даты",                                //8
                              },                    
                              //English
                             {"Amount of component should be less than %d",          //0
@@ -23,6 +24,7 @@ static char *messages[][8] = {{"Количество компонентов до
                              "Cannot create task",                                  //5
                              "Cannot create semaphore",                             //6
                              "Cannot allocate memory",                              //7
+                             "Wrong date format",                                   //8
                              }};
 
                                       //Russian

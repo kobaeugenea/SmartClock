@@ -23,7 +23,8 @@ extern "C" void app_main() {
   date.day = 1;
   date.month = kea_sc_DateS_Month_JUN;
   date.year = 2003;
-  date.dayOfWeek = kea_sc_DateS_Weekday_THU;
+  date.dayOfWeek = kea_sc_DateS_DayOfWeek_THU;
   kea_sc_DisplayC_Id displayId = kea_sc_DisplayC_getDisplayDisplayId(0);
   kea_sc_DisplayC_displayDate(displayId, date);
+  
 }

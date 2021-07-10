@@ -9,6 +9,7 @@
 #include <clib/u8g2.h>
 
 #include "service/kea_sc_MessageS.h"
+#include "service/kea_sc_ErrorS.h"
 #include "component/display/kea_sc_DisplayC.h"
 #include "util/kea_sc_MemoryU.h"
 
@@ -54,6 +55,7 @@ void kea_sc_Display2x4Max7219C_init(kea_sc_ComponentS_Id componentsId) {
   kea_sc_Display2x4Max7219C_Context* context = kea_sc_MemoryU_malloc(sizeof(kea_sc_Display2x4Max7219C_Context));
   context -> u8g2 = u8g2;
   context -> dateSemaphore = kea_sc_MemoryU_xSemaphoreCreateMutex();
+  context -> date = kea_sc_DateS_Date_unixEpoch;
 
   kea_sc_ComponentS_putContext(componentsId, context);
 
@@ -133,6 +135,11 @@ static void redraw(void *pvParameter) {
     {
       date = context -> date;
       xSemaphoreGive(context->dateSemaphore);
+    }
+
+    if(!kea_sc_DateS_isDateValid(date)) {
+      kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_WRONG_DATE_FORMAT));
+      continue;
     }
 
     u8g2_ClearBuffer(&(context->u8g2));
