@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "component/display/kea_sc_DisplayC.h"
 #include "component/display/kea_sc_Display2x4Max7219C.h"
 #include "service/kea_sc_ErrorS.h"
 #include "service/kea_sc_MessageS.h"
 #include "service/kea_sc_ComponentS.h"
+#include "util/kea_sc_MemoryU.h"
 
 typedef struct kea_sc_DisplayC_Methods
 {
@@ -13,7 +15,7 @@ typedef struct kea_sc_DisplayC_Methods
 } kea_sc_DisplayC_Methods;
 
 static kea_sc_DisplayC_Methods displayMethods[] = {
-    [0].displayDate = kea_sc_Display2x4Max7219C_displayDate,
+    [0].displayDate = kea_sc_Display2x4Max7219C_setDate,
     [0].init = kea_sc_Display2x4Max7219C_init
 };
 
@@ -24,7 +26,7 @@ static kea_sc_DisplayC_Id *displayIds;
 void kea_sc_DisplayC_init() {
     //TODO dummy method, implement reading from flash
     displaysCount = 1;
-    displayIds = malloc(sizeof(kea_sc_DisplayC_Id) * displaysCount);
+    displayIds = kea_sc_MemoryU_malloc(sizeof(kea_sc_DisplayC_Id) * displaysCount);
     kea_sc_ComponentS_Id componentId = kea_sc_ComponentS_init(18, 23, 5, -1, -1);
     displayIds[0].id = 0;
     displayIds[0].componentId = componentId;

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-typedef enum kea_sc_DateS_Weekday {
+typedef enum kea_sc_DateS_DayOfWeek {
     kea_sc_DateS_Weekday_MON,
     kea_sc_DateS_Weekday_TUE,
     kea_sc_DateS_Weekday_WED,
@@ -11,7 +11,7 @@ typedef enum kea_sc_DateS_Weekday {
     kea_sc_DateS_Weekday_FRI,
     kea_sc_DateS_Weekday_SAT,
     kea_sc_DateS_Weekday_SUN,
-} kea_sc_DateS_Weekday;
+} kea_sc_DateS_DayOfWeek;
 
 typedef enum kea_sc_DateS_Month {
     kea_sc_DateS_Month_JAN,
@@ -35,7 +35,7 @@ typedef struct kea_sc_DateS_Date {
     uint8_t hour;
     uint8_t sec;
     uint8_t min;
-    kea_sc_DateS_Weekday weekday;
+    kea_sc_DateS_DayOfWeek dayOfWeek;
 } kea_sc_DateS_Date;
 
 #endif

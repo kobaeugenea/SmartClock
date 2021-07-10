@@ -1,3 +1,5 @@
+#include "util/kea_sc_FreeRTOSConfigU.h"
+
 #include <Arduino.h>
 #include "job/kea_sc_OtaJ.h"
 #include "component/display/kea_sc_DisplayC.h"
@@ -17,6 +19,13 @@ extern "C" void app_main() {
   initComponents();
 
   kea_sc_DateS_Date date;
+  date.sec = 12;
+  date.min = 16;
+  date.hour = 2;
+  date.day = 1;
+  date.month = kea_sc_DateS_Month_JUN;
+  date.year = 2003;
+  date.dayOfWeek = kea_sc_DateS_Weekday_THU;
   kea_sc_DisplayC_Id displayId = kea_sc_DisplayC_getDisplayDisplayId(0);
   kea_sc_DisplayC_displayDate(displayId, date);
 }

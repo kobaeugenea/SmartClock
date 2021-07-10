@@ -15,7 +15,7 @@ typedef struct kea_sc_ComponentContext
 static uint8_t numberOfComponents = 0;
 static kea_sc_ComponentContext components[MAX_COMPONENT_COUNT];
 
-static bool checkPinAlreadyUsed(uint8_t pin)
+static bool checkPinAlreadyUsed(int8_t pin)
 {
     if (pin < 0)
     {
@@ -127,11 +127,11 @@ void kea_sc_ComponentS_putContext(kea_sc_ComponentS_Id componentId, void *contex
     components[componentId.id].context = context;
 }
 
-void *kea_sc_ComponentSGetContext(kea_sc_ComponentS_Id componentId)
+void *kea_sc_ComponentS_getContext(kea_sc_ComponentS_Id componentId)
 {
     if(componentId.id > numberOfComponents) {
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_COMPONENT_NOT_EXISTS), componentId.id);
-        return;
+        return NULL;
     }
     return components[componentId.id].context;
 }
