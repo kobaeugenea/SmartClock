@@ -41,6 +41,16 @@ typedef struct kea_sc_DateS_Date {
 
 extern kea_sc_DateS_Date kea_sc_DateS_Date_unixEpoch;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void kea_sc_DateS_init();
 bool kea_sc_DateS_isDateValid(kea_sc_DateS_Date date);
+kea_sc_DateS_Date kea_sc_DateS_getCurrentDate();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
