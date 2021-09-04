@@ -6,6 +6,8 @@
 typedef enum {
     kea_sc_ConfigS_ParamStatus_SUCCESS,
     kea_sc_ConfigS_ParamStatus_ERROR,
+    kea_sc_ConfigS_ParamStatus_EMPTY,
+    kea_sc_ConfigS_ParamStatus_WRONG_OUTPUT_BUF_LENGTH,
 } kea_sc_ConfigS_ParamStatus;
 
 #define KEA_SC_CONFIGS_DEFAULT_NTP_SERVER "pool.ntp.org"

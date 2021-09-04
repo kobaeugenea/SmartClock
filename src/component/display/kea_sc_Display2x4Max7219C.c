@@ -7,6 +7,7 @@
 #include <freertos/task.h>
 #include <freertos/semphr.h>
 #include <clib/u8g2.h>
+#include <esp_log.h>
 
 #include "service/kea_sc_MessageS.h"
 #include "service/kea_sc_ErrorS.h"

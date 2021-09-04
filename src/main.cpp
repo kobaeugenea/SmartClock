@@ -1,10 +1,14 @@
+//TODO refactor namespaces
+
 #include "util/kea_sc_FreeRTOSConfigU.h"
 
 #include <Arduino.h>
+#include <tcpip_adapter.h>
 #include "component/display/kea_sc_DisplayC.h"
 #include "service/kea_sc_DateS.h"
 #include "service/kea_sc_WifiS.h"
 #include "job/kea_sc_WebUIJ.h"
+#include "esp_log.h"
 
 void startJobs() {
   kea_sc_WebUIJ_startJob();
@@ -22,9 +26,10 @@ void initServices() {
 
 extern "C" void app_main() {
   initArduino();
-  initServices(); //wifi should be initialized before WebUI!
-  initComponents();
+  tcpip_adapter_init();
   startJobs();
+  initServices(); //wifi should be initialized after WebUI as Services use settings!
+  initComponents();
 
   kea_sc_DateS_Date date;
   
