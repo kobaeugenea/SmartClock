@@ -5,6 +5,9 @@
 #include <freertos/task.h>
 #include <freertos/semphr.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 BaseType_t kea_sc_MemoryU_xTaskCreate(TaskFunction_t pvTaskCode,
                                       const char *const pcName,
                                       UBaseType_t usStackDepth,
@@ -13,6 +16,9 @@ BaseType_t kea_sc_MemoryU_xTaskCreate(TaskFunction_t pvTaskCode,
                                       TaskHandle_t *pxCreatedTask);
 SemaphoreHandle_t kea_sc_MemoryU_xSemaphoreCreateMutex();
 void* kea_sc_MemoryU_malloc(size_t size);
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif

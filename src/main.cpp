@@ -4,8 +4,10 @@
 #include "component/display/kea_sc_DisplayC.h"
 #include "service/kea_sc_DateS.h"
 #include "service/kea_sc_WifiS.h"
+#include "job/kea_sc_WebUIJ.h"
 
 void startJobs() {
+  kea_sc_WebUIJ_startJob();
 }
 
 void initComponents() {
@@ -20,9 +22,9 @@ void initServices() {
 
 extern "C" void app_main() {
   initArduino();
-  startJobs();
+  initServices(); //wifi should be initialized before WebUI!
   initComponents();
-  initServices();
+  startJobs();
 
   kea_sc_DateS_Date date;
   

@@ -12,7 +12,6 @@ BaseType_t kea_sc_MemoryU_xTaskCreate(TaskFunction_t pvTaskCode,
     BaseType_t task = xTaskCreate(pvTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask);
     if(task != pdPASS)
     {
-        printf("ERROR kea_sc_MemoryU_xTaskCreate: cannot create task");
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_CANNOT_CREATE_TASK));
         vTaskSuspend(NULL);
     }
@@ -24,7 +23,6 @@ SemaphoreHandle_t kea_sc_MemoryU_xSemaphoreCreateMutex() {
     SemaphoreHandle_t semaphore = xSemaphoreCreateMutex();
     if(semaphore == NULL)
     {
-        printf("ERROR kea_sc_MemoryU_xSemaphoreCreateMutex: cannot create semaphore");
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_CANNOT_CREATE_SEMAPHORE));
         vTaskSuspend(NULL);
     }
@@ -35,7 +33,6 @@ void* kea_sc_MemoryU_malloc(size_t size) {
     void* ptr = malloc(size);
     if(ptr == NULL)
     {
-        printf("ERROR kea_sc_MemoryU_malloc: cannot allocate memory");
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_CANNOT_ALLOCATE_MEMORY));
         vTaskSuspend(NULL);
     }
