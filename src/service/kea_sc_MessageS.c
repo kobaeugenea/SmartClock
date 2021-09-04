@@ -3,9 +3,9 @@
 
 static kea_sc_MessageS_Language currentLanguage = kea_sc_MessageS_Language_ENGLISH;
 
-
+//NOTE: Please do not forget update array size when you add new values
                             //Russian                                               //Codes
-static char *messages[][9] = {{"Количество компонентов должно быть меньше, чем %d", //0
+static char *messages[][22] ={{"Количество компонентов должно быть меньше, чем %d", //0
                              "Пин %d уже используется",                             //1
                              "Компонент с %d id не существует",                     //2
                              "Запрошен %d дисплей, всего - %d",                     //3
@@ -14,6 +14,19 @@ static char *messages[][9] = {{"Количество компонентов до
                              "Невозможно создать семафор",                          //6
                              "Невозможно выделить память",                          //7
                              "Неверный формат даты",                                //8
+                             "Время",                                               //9
+                             "NTP сервер",                                          //10
+                             "Часовой пояс GMT",                                    //11
+                             "Wi-Fi",                                               //12
+                             "Сеть",                                                //13
+                             "Пароль",                                              //14
+                             "Сохранить",                                           //15
+                             "Перезагрузить устройство",                            //16
+                             "Информация",                                          //17
+                             "Все параметры",                                       //18
+                             "Длина значение параметра (%d) больше буффера (%d)",   //19
+                             "Не могу получить параметр %s",                        //20
+                             "Не могу получить число из строки '%s', код %d",       //21
                              },                    
                              //English
                             {"Amount of component should be less than %d",          //0
@@ -25,6 +38,19 @@ static char *messages[][9] = {{"Количество компонентов до
                              "Cannot create semaphore",                             //6
                              "Cannot allocate memory",                              //7
                              "Wrong date format",                                   //8
+                             "Time",                                                //9
+                             "NTP server",                                          //10
+                             "Time zone GMT",                                       //11
+                             "Wi-Fi",                                               //12
+                             "Network",                                             //13
+                             "Password",                                            //14
+                             "Save",                                                //15
+                             "Reboot device",                                       //16
+                             "Info",                                                //17
+                             "All parameters",                                      //18
+                             "Length of parameter value (%d) bigger than buffer (%d)",//19
+                             "Cannot read parameter",                               //20
+                             "Cannot parse '%s' to integer, code %d",               //21
                              }};
 
                                       //Russian

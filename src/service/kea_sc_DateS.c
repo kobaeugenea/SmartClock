@@ -1,8 +1,14 @@
 #include "service/kea_sc_DateS.h"
+#include "service/kea_sc_ConfigS.h"
 
 #include <esp_sntp.h>
 
-#define KEA_SC_DATES_DAYS_IN_WEEK 7
+#define DAYS_IN_WEEK 7
+#define NTP_SERVER_NAME_LENGTH_MAX 32
+
+static uint8_t timeZone = 0;
+static char ntpServer[NTP_SERVER_NAME_LENGTH_MAX];
+
 
 kea_sc_DateS_Date kea_sc_DateS_Date_unixEpoch = {
     .sec = 0,
@@ -14,13 +20,27 @@ kea_sc_DateS_Date kea_sc_DateS_Date_unixEpoch = {
     .dayOfWeek = kea_sc_DateS_DayOfWeek_THU,
 };
 
-void kea_sc_DateS_init() {
-    setenv("TZ", "VLAT-10", 1);
-    tzset();
 
+
+void kea_sc_DateS_init() {
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
-    sntp_setservername(0, "pool.ntp.org");
-    sntp_init();
+
+    kea_sc_ConfigS_ParamStatus ntpServerParamStatus = kea_sc_ConfigS_getNTPServer(ntpServer, NTP_SERVER_NAME_LENGTH_MAX);
+    if (ntpServerParamStatus == kea_sc_ConfigS_ParamStatus_SUCCESS) {
+        sntp_setservername(0, ntpServer);
+    }
+
+    kea_sc_ConfigS_ParamStatus timeZoneParamStatus = kea_sc_ConfigS_getTimeZone(timeZone);
+    if (timeZoneParamStatus == kea_sc_ConfigS_ParamStatus_SUCCESS) {
+        char timeZoneString[8];
+        sprintf(timeZoneString, "GMT%s%d", timeZone > 0 ? "+" : "", timeZone);
+        setenv("TZ", timeZoneString, 1);
+        tzset();
+    }
+
+    if (ntpServerParamStatus == kea_sc_ConfigS_ParamStatus_SUCCESS && timeZoneParamStatus == kea_sc_ConfigS_ParamStatus_SUCCESS) {
+        sntp_init();
+    }
 }
 
 bool kea_sc_DateS_isDateValid(kea_sc_DateS_Date date) {
@@ -44,7 +64,7 @@ kea_sc_DateS_Date kea_sc_DateS_getCurrentDate() {
         .month = localTime->tm_mon,
         .year = 1900 + localTime->tm_year,
         //tm_wday is days since Sunday – [0, 6], but dayOfWeek is days since Monday – [0, 6]
-        .dayOfWeek = (localTime->tm_wday + 6) % KEA_SC_DATES_DAYS_IN_WEEK, //tm_wday is days since Sunday – [0, 6]
+        .dayOfWeek = (localTime->tm_wday + 6) % DAYS_IN_WEEK, //tm_wday is days since Sunday – [0, 6]
     };
 
     if(date.sec == 60) {
@@ -53,3 +73,6 @@ kea_sc_DateS_Date kea_sc_DateS_getCurrentDate() {
 
     return date;
 }
+
+#undef DAYS_IN_WEEK
+#undef NTP_SERVER_NAME_LENGTH_MAX
