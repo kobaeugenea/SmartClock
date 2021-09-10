@@ -42,8 +42,7 @@ kea_sc_ConfigS_ParamStatus kea_sc_ConfigS_getTimeZone(int8_t *out)
         return kea_sc_ConfigS_ParamStatus_EMPTY;
     }
 
-    int8_t timeZone;
-    kea_sc_StringU_ParseStatus parseStatus = kea_sc_StringU_stringToInt8(&timeZone, buf);
+    kea_sc_StringU_ParseStatus parseStatus = kea_sc_StringU_stringToInt8(out, buf);
 
     if(parseStatus != kea_sc_StringU_ParseStatus_SUCCESS) {
         kea_sc_ErrorS_put(kea_sc_MessageS_getTranslatedMessage(KEA_SC_MESSAGES_CANNOT_READ_PARAM), KEA_SC_WEBUIJ_PARAM_TIME_ZONE);
