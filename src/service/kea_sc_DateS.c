@@ -2,11 +2,12 @@
 #include "service/kea_sc_ConfigS.h"
 
 #include <esp_sntp.h>
+#include "esp_log.h"
 
 #define DAYS_IN_WEEK 7
 #define NTP_SERVER_NAME_LENGTH_MAX 32
 
-static uint8_t timeZone = 0;
+static int8_t timeZone = 0;
 static char ntpServer[NTP_SERVER_NAME_LENGTH_MAX];
 
 
@@ -30,10 +31,11 @@ void kea_sc_DateS_init() {
         sntp_setservername(0, ntpServer);
     }
 
-    kea_sc_ConfigS_ParamStatus timeZoneParamStatus = kea_sc_ConfigS_getTimeZone(timeZone);
+    kea_sc_ConfigS_ParamStatus timeZoneParamStatus = kea_sc_ConfigS_getTimeZone(&timeZone);
     if (timeZoneParamStatus == kea_sc_ConfigS_ParamStatus_SUCCESS) {
-        char timeZoneString[8];
-        sprintf(timeZoneString, "GMT%s%d", timeZone > 0 ? "+" : "", timeZone);
+        char timeZoneString[9];
+        int8_t timeZoneOpposite = timeZone * -1; // Seems to be bug in setenv as opposite time zone should be passed for correct work
+        sprintf(timeZoneString, "GMT%s%d", timeZoneOpposite > 0 ? "+" : "", timeZoneOpposite);
         setenv("TZ", timeZoneString, 1);
         tzset();
     }

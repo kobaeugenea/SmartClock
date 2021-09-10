@@ -7,6 +7,13 @@
         "esp_system.h": "c",
         "esp_wifi.h": "c",
         "kea_sc_display2x4max7219c.h": "c",
-        "thread": "cpp"
+        "thread": "cpp",
+        "kea_sc_displayc.h": "c",
+        "u8g2.h": "c",
+        "stdatomic.h": "c",
+        "freertos.h": "c",
+        "u8x8.h": "c",
+        "kea_sc_messages.h": "c",
+        "kea_sc_errors.h": "c"
     }
 }
