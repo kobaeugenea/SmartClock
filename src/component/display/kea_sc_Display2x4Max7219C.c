@@ -1,3 +1,5 @@
+#define U8G2_16BIT
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -122,7 +124,7 @@ static bool showColon(uint64_t cycleNum, uint64_t delayMs, uint64_t updateColonA
 
 static void redraw(void *pvParameter) {
   static uint64_t drawCycleNum = 0;
-  static uint8_t secondFloorTextOffset = 0;
+  static u8g2_uint_t secondFloorTextOffset = 0;
 
   const uint64_t delayMs = 100;
   const uint64_t updateColonAtMs = 1000;
@@ -145,7 +147,7 @@ static void redraw(void *pvParameter) {
 
     u8g2_ClearBuffer(&(context->u8g2));
     printFirstFloor(&(context->u8g2), date, showColon(drawCycleNum, delayMs, updateColonAtMs));
-    uint8_t maxOffset = printSecondFloor(&(context->u8g2), date, secondFloorTextOffset);
+    u8g2_uint_t maxOffset = printSecondFloor(&(context->u8g2), date, secondFloorTextOffset);
     u8g2_SendBuffer(&(context->u8g2));
 
     secondFloorTextOffset = (secondFloorTextOffset >= maxOffset - 1) ? 0 : secondFloorTextOffset + 1; 
