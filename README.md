@@ -10,4 +10,4 @@ Project in development. New features will be added, some things reworked.
 * 2 Max7219 matrix
 * Esp32
 ## Contribution
-Project is open for contribution. Please try to follow code style of namespacing and use pure as much as possible.
+Project is open for contribution. Please try to follow code style of namespacing and use pure C as much as possible.
