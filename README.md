@@ -1,6 +1,7 @@
 # SmartClock
-Project of SmartClock for ESP32 using pure C.
-Project in development. New features will be added, some things reworked.
+Project of SmartClock for ESP32 using pure C.  
+Project in development. New features will be added, some things reworked.  
+![clock](photo.jpeg)
 ## Features
 * Disaply date
 * AP with WebUI for settings (powered by https://github.com/WonderCRM/CRMui3)
