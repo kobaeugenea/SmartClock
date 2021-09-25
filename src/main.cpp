@@ -1,26 +1,24 @@
-//TODO refactor namespaces
-
-#include "util/kea_sc_FreeRTOSConfigU.h"
+#include "com/github/kobaeugenea/smartclock/util/FreeRTOSConfig.h"
 
 #include <Arduino.h>
 #include <tcpip_adapter.h>
-#include "component/display/kea_sc_DisplayC.h"
-#include "service/kea_sc_DateS.h"
-#include "service/kea_sc_WifiS.h"
-#include "job/kea_sc_WebUIJ.h"
-#include "esp_log.h"
+#include "com/github/kobaeugenea/smartclock/service/component/DisplayService.h"
+#include "com/github/kobaeugenea/smartclock/service/WifiService.h"
+#include "com/github/kobaeugenea/smartclock/job/WebUI.h"
+
+#include <esp_log.h>
 
 void startJobs() {
-  kea_sc_WebUIJ_startJob();
+  WebUI.startJob();
 }
 
 void initComponents() {
-  kea_sc_DisplayC_init();
+  DisaplyService.init();
 }
 
 void initServices() {
-  kea_sc_WifiS_init();
-  kea_sc_DateS_init();
+  WifiService.init();
+  DateSerivce.init();
 }
 
 
@@ -31,13 +29,13 @@ extern "C" void app_main() {
   initServices(); //wifi should be initialized after WebUI as Services use settings!
   initComponents();
 
-  kea_sc_DateS_Date date;
+  uint8_t currentDisaplyNum = 0;
+  Date date;
   
-  kea_sc_DisplayC_Id displayId = kea_sc_DisplayC_getDisplayDisplayId(0);
   while (true)
   {
-    date = kea_sc_DateS_getCurrentDate();
-    kea_sc_DisplayC_displayDate(displayId, date);
+    date = DateSerivce.getCurrentDate();
+    DisaplyService.showDate(currentDisaplyNum, date);
   }
 
   

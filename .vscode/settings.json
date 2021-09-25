@@ -14,6 +14,26 @@
         "freertos.h": "c",
         "u8x8.h": "c",
         "kea_sc_messages.h": "c",
-        "kea_sc_errors.h": "c"
+        "kea_sc_errors.h": "c",
+        "kea_sc_queueu.h": "c",
+        "kea_sc_memoryu.h": "c",
+        "cstdint": "cpp",
+        "messageservice.h": "c",
+        "month.h": "c",
+        "language.h": "c",
+        "memoryutils.h": "c",
+        "configservice.h": "c",
+        "ctime": "cpp",
+        "*.ipp": "c",
+        "*.tcc": "c",
+        "componentservice.h": "c",
+        "displayservice.h": "c",
+        "errorservice.h": "c",
+        "webui.h": "c",
+        "unordered_map": "c",
+        "fstream": "c",
+        "istream": "c",
+        "ostream": "c",
+        "sstream": "c"
     }
 }
